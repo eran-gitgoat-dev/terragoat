@@ -145,3 +145,34 @@ resource azurerm_network_watcher_flow_log "flow_log" {
     yor_trace            = "33a7212e-7f1a-49fc-af73-8e525c5546ec"
   }
 }
+
+resource azurerm_network_security_group "bad_sg2" {
+  location            = var.location
+  name                = "terragoat-${var.environment}"
+  resource_group_name = azurerm_resource_group.example.name
+
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "AllowSSH"
+    priority                   = 200
+    protocol                   = "TCP"
+    source_address_prefix      = "*"
+    source_port_range          = "*"
+    destination_port_range     = "22-22"
+    destination_address_prefix = "*"
+  }
+
+  security_rule {
+    access                     = "Allow"
+    direction                  = "Inbound"
+    name                       = "AllowRDP"
+    priority                   = 300
+    protocol                   = "TCP"
+    source_address_prefix      = "*"
+    source_port_range          = "*"
+    destination_port_range     = "3389-3389"
+    destination_address_prefix = "*"
+  }
+ 
+}
