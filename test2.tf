@@ -68,6 +68,7 @@ resource "azurerm_network_interface" "ni_win" {
 }
 
 resource azurerm_network_security_group "bad_sg" {
+  # foo
   location            = var.location
   name                = "terragoat-${var.environment}"
   resource_group_name = azurerm_resource_group.example.name
@@ -130,7 +131,7 @@ resource azurerm_network_watcher_flow_log "flow_log" {
   resource_group_name       = azurerm_resource_group.example.name
   storage_account_id        = azurerm_storage_account.example.id
   retention_policy {
-    enabled = false
+    enabled = true
     days    = 100
   }
   tags = {
